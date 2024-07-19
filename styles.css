@@ -1,0 +1,141 @@
+body {
+    font-family: 'Loretto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #193f7a; /* Firmenfarbe Blau */
+}
+
+.header {
+    text-align: center;
+    padding: 20px;
+    background-color: #193f7a; /* Firmenfarbe Blau */
+}
+
+.logo {
+    max-width: 300px; /* Angepasste Größe des Logos */
+    height: auto;
+    display: block;
+    margin: 0 auto 20px;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 600px;
+    margin: 0 auto 20px;
+    padding: 0 20px;
+}
+
+.title-container {
+    flex-grow: 1;
+}
+
+.title-container h1 {
+    font-family: 'Humanist', sans-serif;
+    color: #ffffff;
+    margin: 0;
+    padding-bottom: 10px;
+    position: relative;
+    display: inline-block;
+}
+
+.title-container h1::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 15px; /* Um die Hälfte kleiner */
+    background-color: #db0812; /* Firmenfarbe Rot */
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    z-index: -1;
+    width: calc(100% - 2px); /* Unterstreicht nur den Text */
+}
+
+.call-button {
+    background-color: #db0812; /* Firmenfarbe Rot */
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    padding: 12px 24px;
+    border-radius: 4px;
+    font-size: 1.2em; /* Angepasste Schriftgröße */
+}
+
+.container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+form label {
+    display: block;
+    margin-bottom: 5px;
+    color: #193f7a; /* Firmenfarbe Blau */
+}
+
+form input, form select, form button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+form button {
+    background-color: #193f7a; /* Firmenfarbe Blau */
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #db0812; /* Firmenfarbe Rot */
+}
+
+footer {
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px 0;
+    background-color: #193f7a; /* Firmenfarbe Blau */
+}
+
+footer a {
+    font-family: 'Humanist', sans-serif;
+    color: #ffffff;
+    text-decoration: none;
+    margin: 0 10px;
+    font-size: 1.2em; /* Größere Schrift */
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+    .header-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .title-container, .container {
+        padding: 20px;
+        margin: 20px;
+    }
+
+    .call-button {
+        width: 100%;
+        padding: 10px;
+        font-size: 1em;
+        margin-top: 10px;
+    }
+
+    .logo {
+        margin-bottom: 20px;
+        max-width: 100%;
+    }
+}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krankmeldung</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Humanist:wght@700&family=Loretto&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="header">
+        <img src="logo.png" alt="Firmenlogo" class="logo">
+    </div>
+    <div class="header-container">
+        <div class="title-container">
+            <h1>Krankmeldung</h1>
+        </div>
+        <button class="call-button" onclick="window.location.href='tel:04494719'">04494 719</button>
+    </div>
+    <div class="container">
+        <form action="send_email.php" method="post" enctype="multipart/form-data">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required><br><br>
+
+            <label for="arztbesuch">Warst du beim Arzt?</label>
+            <select id="arztbesuch" name="arztbesuch" required>
+                <option value="ja">Ja</option>
+                <option value="nein">Nein</option>
+            </select><br><br>
+
+            <label for="arztbesuch_datum">Datum des Arztbesuchs (falls zutreffend):</label>
+            <input type="date" id="arztbesuch_datum" name="arztbesuch_datum"><br><br>
+
+            <label for="krankheitsdauer">Wie lange bist du krankgeschrieben?</label>
+            <input type="text" id="krankheitsdauer" name="krankheitsdauer" required><br><br>
+
+            <label for="krankschreibung">Lade ein Bild deiner Krankschreibung hoch (optional):</label>
+            <input type="file" id="krankschreibung" name="krankschreibung" accept="image/*"><br><br>
+
+            <button type="submit">Krankmeldung abschicken</button>
+        </form>
+    </div>
+    <footer>
+        <a href="https://www.fliesen-goetting.de/datenschutz" target="_blank">Datenschutz</a> | 
+        <a href="https://www.fliesen-goetting.de/impressum" target="_blank">Impressum</a>
+    </footer>
+</body>
+</html>
