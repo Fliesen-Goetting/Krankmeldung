@@ -11,7 +11,7 @@
 </head>
 <body>
     <div class="header">
-        <img src="logo.png" alt="Firmenlogo" class="logo">
+        <img src="https://via.placeholder.com/300" alt="Firmenlogo" class="logo"> <!-- Platzhalterbild als Beispiel -->
     </div>
     <div class="header-container">
         <div class="title-container">
@@ -36,6 +36,12 @@
             <label for="krankheitsdauer">Wie lange bist du krankgeschrieben?</label>
             <input type="text" id="krankheitsdauer" name="krankheitsdauer" required><br><br>
 
+            <label for="krankschreibung_typ">Hast du eine digitale oder eine Papier-Krankmeldung erhalten?</label>
+            <select id="krankschreibung_typ" name="krankschreibung_typ" required>
+                <option value="digital">Digital</option>
+                <option value="papier">Papier</option>
+            </select><br><br>
+
             <label for="krankschreibung">Lade ein Bild deiner Krankschreibung hoch (optional):</label>
             <input type="file" id="krankschreibung" name="krankschreibung" accept="image/*"><br><br>
 
@@ -48,3 +54,4 @@
     </footer>
 </body>
 </html>
+
