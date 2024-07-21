@@ -43,14 +43,13 @@ body {
 .title-container h1::after {
     content: '';
     display: block;
-    width: 100%;
-    height: 15px; /* Um die Hälfte kleiner */
+    height: 15px; /* Angepasste Höhe der Unterstreichung */
     background-color: #db0812; /* Firmenfarbe Rot */
     position: absolute;
     bottom: 10px;
     left: 0;
     z-index: -1;
-    width: calc(100% - 2px); /* Unterstreicht nur den Text */
+    width: 100%; /* Unterstreicht nur den Text */
 }
 
 .call-button {
@@ -139,3 +138,4 @@ footer a:hover {
         max-width: 100%;
     }
 }
+
