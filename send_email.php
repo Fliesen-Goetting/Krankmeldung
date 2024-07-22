@@ -1,57 +1,55 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = $_POST['name'];
-    $arztbesuch = $_POST['arztbesuch'];
-    $arztbesuch_datum = $_POST['arztbesuch_datum'];
-    $krankheitsdauer = $_POST['krankheitsdauer'];
-    $to = "buchhaltung@goetting.de";
-    $subject = "Krankmeldung von $name";
+    $to = "buchhaltung@mfg-goetting.de";
+    $subject = "Neue Krankmeldung";
+    
+    $name = htmlspecialchars($_POST['name']);
+    $arztbesuch = htmlspecialchars($_POST['arztbesuch']);
+    $arztbesuch_datum = htmlspecialchars($_POST['arztbesuch_datum']);
+    $krankheitsdauer = htmlspecialchars($_POST['krankheitsdauer']);
+    $krankschreibung_typ = htmlspecialchars($_POST['krankschreibung_typ']);
+
     $message = "Name: $name\n";
     $message .= "War beim Arzt: $arztbesuch\n";
-    if (!empty($arztbesuch_datum)) {
-        $message .= "Datum des Arztbesuchs: $arztbesuch_datum\n";
-    }
-    $message .= "Dauer der Krankschreibung: $krankheitsdauer\n";
+    $message .= "Datum des Arztbesuchs: $arztbesuch_datum\n";
+    $message .= "Krankheitsdauer: $krankheitsdauer\n";
+    $message .= "Krankmeldung Typ: $krankschreibung_typ\n";
 
-    $headers = "From: webmaster@yourdomain.com";
-
-    // Dateianhang
+    // Datei-Upload-Handling
     if (isset($_FILES['krankschreibung']) && $_FILES['krankschreibung']['error'] == UPLOAD_ERR_OK) {
-        $file_tmp = $_FILES['krankschreibung']['tmp_name'];
-        $file_name = $_FILES['krankschreibung']['name'];
-        $file_size = $_FILES['krankschreibung']['size'];
-        $file_type = $_FILES['krankschreibung']['type'];
+        $file = $_FILES['krankschreibung'];
+        $file_name = $file['name'];
+        $file_tmp = $file['tmp_name'];
+        $file_size = $file['size'];
+        $file_type = $file['type'];
+        
+        $file_content = chunk_split(base64_encode(file_get_contents($file_tmp)));
+        $boundary = md5(uniqid(time()));
 
-        $handle = fopen($file_tmp, "r");
-        $content = fread($handle, $file_size);
-        fclose($handle);
+        $headers = "From: noreply@mfg-goetting.de\r\n";
+        $headers .= "MIME-Version: 1.0\r\n";
+        $headers .= "Content-Type: multipart/mixed; boundary=\"{$boundary}\"\r\n";
 
-        $encoded_content = chunk_split(base64_encode($content));
-
-        $boundary = md5("random");
-
-        $headers .= "\r\nMIME-Version: 1.0\r\n";
-        $headers .= "Content-Type: multipart/mixed; boundary=$boundary\r\n";
-
-        $body = "--$boundary\r\n";
-        $body .= "Content-Type: text/plain; charset=ISO-8859-1\r\n";
-        $body .= "Content-Transfer-Encoding: base64\r\n\r\n";
-        $body .= chunk_split(base64_encode($message));
-
-        $body .= "--$boundary\r\n";
-        $body .= "Content-Type: $file_type; name=\"$file_name\"\r\n";
-        $body .= "Content-Disposition: attachment; filename=\"$file_name\"\r\n";
+        $body = "--{$boundary}\r\n";
+        $body .= "Content-Type: text/plain; charset=\"UTF-8\"\r\n";
+        $body .= "Content-Transfer-Encoding: 7bit\r\n";
+        $body .= "\r\n{$message}\r\n";
+        $body .= "--{$boundary}\r\n";
+        $body .= "Content-Type: {$file_type}; name=\"{$file_name}\"\r\n";
+        $body .= "Content-Disposition: attachment; filename=\"{$file_name}\"\r\n";
         $body .= "Content-Transfer-Encoding: base64\r\n";
-        $body .= "X-Attachment-Id: ".rand(1000, 99999)."\r\n\r\n";
-        $body .= $encoded_content;
+        $body .= "\r\n{$file_content}\r\n";
+        $body .= "--{$boundary}--";
+
+        mail($to, $subject, $body, $headers);
     } else {
-        $body = $message;
+        $headers = "From: noreply@mfg-goetting.de\r\n";
+        $headers .= "Content-Type: text/plain; charset=\"UTF-8\"";
+
+        mail($to, $subject, $message, $headers);
     }
 
-    if (mail($to, $subject, $body, $headers)) {
-        echo "E-Mail erfolgreich gesendet.";
-    } else {
-        echo "Fehler beim Senden der E-Mail.";
-    }
+    header("Location: danke.html");
+    exit();
 }
 ?>
